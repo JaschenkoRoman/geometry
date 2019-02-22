@@ -16,7 +16,7 @@ public class DataReaderImpl implements DataReader {
     private Logger logger = LoggerFactory.getLogger(DataReaderImpl.class);
 
     public List<String> readLines() throws DataException {
-        List<String> inputLines = new ArrayList<String>();
+        List<String> inputLines = new ArrayList<>();
         try (FileReader fileReader = new FileReader(path);
         BufferedReader bufferedReader = new BufferedReader(fileReader)){
             while(bufferedReader.ready()){
