@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Cone {
-    private final Point centre;
-    private final double height;
-    private final double radius;
+    private Point centre;
+    private double height;
+    private double radius;
     private Logger logger = LoggerFactory.getLogger(Cone.class);
 
     public Cone(Point centre, double height, double radius) {
@@ -36,6 +36,18 @@ public class Cone {
         return radius;
     }
 
+    public void setCentre(Point centre) {
+        this.centre = centre;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
     @Override
     public int hashCode() {
         int result = 17;
@@ -50,6 +62,9 @@ public class Cone {
         if(obj == this){
             return true;
         }
+        if(obj == null){
+            return false;
+        }
         if(obj.getClass() != this.getClass()){
             return false;
         }
@@ -63,4 +78,5 @@ public class Cone {
     public String toString() {
         return "Cone: centre = " + centre.toString() + ", height = " + height + ", radius = " + radius ;
     }
+
 }

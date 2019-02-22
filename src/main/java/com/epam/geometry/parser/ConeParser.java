@@ -17,13 +17,13 @@ public class ConeParser implements DataParser {
             logger.error("ParseException has occurred: input is empty");
             throw new ParseException("Input is empty");
         }
-        List<double[]> coneData = new ArrayList<double[]>();
+        List<double[]> coneData = new ArrayList<>();
         for (String line: inputLines) {
             String[] doubles = line.split(REGEX);
             double[] doublesArray = new double[5];
                 try {
                     for (int i = 0; i < 5; i++) {
-                    double data = Double.valueOf(doubles[i]);
+                    double data = Double.parseDouble(doubles[i]);
                     doublesArray[i] = data;
                 }
                     coneData.add(doublesArray);

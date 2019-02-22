@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConeDirector {
-    private final DataReader dataReaderImpl;
-    private final DataParser coneParser;
-    private final ConeValidator coneValidator;
+    private DataReader dataReaderImpl;
+    private DataParser coneParser;
+    private ConeValidator coneValidator;
     private Logger logger = LoggerFactory.getLogger(ConeDirector.class);
 
     public ConeDirector(DataReader dataReaderImpl, DataParser coneParser, ConeValidator coneValidator) {
@@ -26,7 +26,7 @@ public class ConeDirector {
     }
 
     public List<Cone> process() throws DataException, ParseException {
-        logger.info("process() method has been launched");
+        logger.info("process() method of " + this.toString() + " has been launched");
         List<String> inputLines = dataReaderImpl.readLines();
         List<double[]> cones = coneParser.parse(inputLines);
         List<Cone> conesList = createValidCones(cones);

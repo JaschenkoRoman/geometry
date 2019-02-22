@@ -17,16 +17,13 @@ public class DataReaderImpl implements DataReader {
 
     public List<String> readLines() throws DataException {
         List<String> inputLines = new ArrayList<String>();
-        try {
-            FileReader fileReader = new FileReader(path);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (FileReader fileReader = new FileReader(path);
+        BufferedReader bufferedReader = new BufferedReader(fileReader)){
             while(bufferedReader.ready()){
                 String line = bufferedReader.readLine();
-                inputLines.add(line.trim());
+                String trimLine = line.trim();
+                inputLines.add(trimLine);
             }
-            fileReader.close();
-            bufferedReader.close();
-
         } catch (IOException e) {
             logger.error("DataException has occurred while reading file: " + path, e);
             throw new DataException("Cannot read file", e.getCause());

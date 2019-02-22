@@ -7,11 +7,11 @@ import com.epam.geometry.entity.Point;
 import static java.lang.Math.*;
 
 public class Calculator {
-    public double surfaceSquare(Cone cone){
+    public double area(Cone cone){
         double radius = cone.getRadius();
         double height = cone.getHeight();
-        double square = PI * radius * (radius + sqrt(pow(radius, 2) + pow(height, 2)));
-        return square;
+        double area = PI * radius * (radius + sqrt(pow(radius, 2) + pow(height, 2)));
+        return area;
     }
     public double volume(Cone cone){
         double radius = cone.getRadius();

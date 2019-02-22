@@ -1,9 +1,9 @@
 package com.epam.geometry.entity;
 
 public class Point {
-    private final double x;
-    private final double y;
-    private final double z;
+    private double x;
+    private double y;
+    private double z;
 
     public Point(double x, double y, double z) {
         this.x = x;
@@ -36,6 +36,9 @@ public class Point {
     public boolean equals(Object obj) {
         if(obj == this){
             return true;
+        }
+        if(obj == null){
+            return false;
         }
         if(obj.getClass() != this.getClass()){
             return false;

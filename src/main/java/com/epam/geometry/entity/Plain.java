@@ -23,6 +23,9 @@ public class Plain {
         if(obj == this){
             return true;
         }
+        if(obj == null){
+            return false;
+        }
         if(obj.getClass() != this.getClass()){
             return false;
         }
