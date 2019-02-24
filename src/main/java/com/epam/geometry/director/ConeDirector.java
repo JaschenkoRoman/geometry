@@ -33,10 +33,10 @@ public class ConeDirector {
         return conesList;
     }
 
-    private List<Cone> createValidCones(List<double[]> cones){
+    private List<Cone> createValidCones(List<double[]> cones) {
         List<Cone> conesList = new ArrayList<Cone>();
         for (double[] coneData: cones) {
-            if(coneValidator.isCone(coneData)){
+            if(coneValidator.isCone(coneData)) {
                 Point point = new Point(coneData[0], coneData[1], coneData[2]);
                 Cone cone = new Cone(point, coneData[3], coneData[4]);
                 conesList.add(cone);

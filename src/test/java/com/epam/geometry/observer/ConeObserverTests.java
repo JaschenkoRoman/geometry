@@ -53,8 +53,8 @@ public class ConeObserverTests {
         when(calculatorMock.isSituatedOnTheAxisSurface(CONE)).thenReturn(false).thenReturn(false);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
-        /*When*/
         CONE.setHeight(UPDATED_HEIGHT);
+        /*When*/
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);
@@ -76,8 +76,8 @@ public class ConeObserverTests {
         when(calculatorMock.isSituatedOnTheAxisSurface(CONE)).thenReturn(false).thenReturn(false);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
+        CONE.setHeight(UPDATED_HEIGHT);
         /*When*/
-        CONE.setRadius(UPDATED_RADIUS);
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);
@@ -100,8 +100,8 @@ public class ConeObserverTests {
         when(calculatorMock.isSituatedOnTheAxisSurface(CONE)).thenReturn(false).thenReturn(true);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
-        /*When*/
         CONE.setCentre(newCentre);
+        /*When*/
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);
@@ -132,9 +132,9 @@ public class ConeObserverTests {
                 .thenReturn(false);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
-        /*When*/
         CONE.setHeight(UPDATED_HEIGHT);
         CONE.setRadius(UPDATED_RADIUS);
+        /*When*/
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);
@@ -166,9 +166,9 @@ public class ConeObserverTests {
                 .thenReturn(true);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
-        /*When*/
         CONE.setHeight(UPDATED_HEIGHT);
         CONE.setCentre(newCentre);
+        /*When*/
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);
@@ -200,9 +200,9 @@ public class ConeObserverTests {
                 .thenReturn(true);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
-        /*When*/
         CONE.setRadius(UPDATED_RADIUS);
         CONE.setCentre(newCentre);
+        /*When*/
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);
@@ -237,10 +237,10 @@ public class ConeObserverTests {
                 .thenReturn(true);
         ConeObserver coneObserver = ConeObserver.getInstance(calculatorMock);
         CONE.addObserver(coneObserver);
-        /*When*/
         CONE.setHeight(UPDATED_HEIGHT);
         CONE.setRadius(UPDATED_RADIUS);
         CONE.setCentre(newCentre);
+        /*When*/
         ConeParameters actual = coneObserver.getParameters(CONE.getId());
         /*then*/
         Assert.assertNotNull(actual);

@@ -3,7 +3,7 @@ package com.epam.geometry.validator;
 
 public class ConeValidator {
     /*checks: height and radius > 0*/
-    public boolean isCone(double[] coneData){
+    public boolean isCone(double[] coneData) {
         if(coneData.length < 5) {
             return false;
         }

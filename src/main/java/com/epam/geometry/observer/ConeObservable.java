@@ -6,7 +6,7 @@ import com.epam.geometry.entity.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConeObservable extends Cone implements Observable<ConeObservable>{
+public class ConeObservable extends Cone implements Observable<ConeObservable> {
     private final Integer id;
     private List<Observer<ConeObservable>>  observers = new ArrayList<>();
 
@@ -73,13 +73,13 @@ public class ConeObservable extends Cone implements Observable<ConeObservable>{
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this){
+        if(obj == this) {
             return true;
         }
-        if(obj == null){
+        if(obj == null) {
             return false;
         }
-        if(obj.getClass() != this.getClass()){
+        if(obj.getClass() != this.getClass()) {
             return false;
         }
         ConeObservable coneObservable = (ConeObservable) obj;

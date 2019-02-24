@@ -11,11 +11,11 @@ public class Cone {
     private Logger logger = LoggerFactory.getLogger(Cone.class);
 
     public Cone(Point centre, double height, double radius) {
-        if(height <= 0){
+        if(height <= 0) {
             logger.error("attempt to create Cone instance with zero height");
             throw new ConeCreationException("height less than zero" + height);
         }
-        if(radius <= 0){
+        if(radius <= 0) {
             logger.error("attempt to create Cone instance with zero radius");
             throw new ConeCreationException("radius less than zero" + radius);
         }
@@ -59,13 +59,13 @@ public class Cone {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this){
+        if(obj == this) {
             return true;
         }
-        if(obj == null){
+        if(obj == null) {
             return false;
         }
-        if(obj.getClass() != this.getClass()){
+        if(obj.getClass() != this.getClass()) {
             return false;
         }
         Cone cone = (Cone)obj;

@@ -9,25 +9,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConeObservableRepository implements Repository<ConeObservable> {
-    private Set<ConeObservable> coneObservableStorage;
+    private Map<Integer, ConeObservable> coneObservableStorage;
     private Logger logger = LoggerFactory.getLogger(ConeObservableRepository.class);
-    @Override
-    public void save(ConeObservable item) {
-        List<ConeObservable> same = coneObservableStorage
-                .stream()
-                .filter(cone -> cone.getId().equals(item.getId()))
-                .collect(Collectors.toList());
-        coneObservableStorage.removeAll(same);
-        coneObservableStorage.add(item);
-    }
 
     public ConeObservableRepository() {
         logger.info("ConeObservableRepository " + this.toString() + " has been created");
-        this.coneObservableStorage = new HashSet<>();
+        this.coneObservableStorage = new HashMap<>();
     }
     @Override
+    public void save(ConeObservable item) {
+        coneObservableStorage.put(item.getId(), item);
+    }
+
+    @Override
     public void saveAll(List<ConeObservable> items) {
-        items.stream().forEach(this::save);
+        items.parallelStream().forEach(this::save);
     }
 
     @Override
@@ -37,12 +33,13 @@ public class ConeObservableRepository implements Repository<ConeObservable> {
 
     @Override
     public void removeAll(List<ConeObservable> items) {
-        coneObservableStorage.removeAll(items);
+        items.parallelStream().forEach(this::remove);
     }
 
     @Override
     public List<ConeObservable> query(Specification specification) {
         return coneObservableStorage
+                .values()
                 .parallelStream()
                 .filter(specification::specified)
                 .collect(Collectors.toList());

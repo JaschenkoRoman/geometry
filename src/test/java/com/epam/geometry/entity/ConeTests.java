@@ -10,42 +10,42 @@ public class ConeTests {
 
     /*positive tests*/
     @Test
-    public void testConeShouldCreateConeWhenHeightIsSixAndRadiusIsTwoDotThree(){
+    public void testConeShouldCreateConeWhenHeightIsSixAndRadiusIsTwoDotThree() {
         /*When*/
         Cone actual = new Cone(point, 6.0, 2.3);
+        /*Then*/
         double height = actual.getHeight();
         double radius = actual.getRadius();
-        /*Then*/
         Assert.assertEquals(6.0 , height,DELTA);
         Assert.assertEquals(2.3, radius, DELTA);
     }
     @Test
-    public void testConeShouldCreateConeWhenHeightIsOneDotOneAndRadiusIsThreeDotSeven(){
+    public void testConeShouldCreateConeWhenHeightIsOneDotOneAndRadiusIsThreeDotSeven() {
         /*When*/
         Cone actual = new Cone(point, 0.1, 3.7);
+        /*Then*/
         double height = actual.getHeight();
         double radius = actual.getRadius();
-        /*Then*/
         Assert.assertEquals(0.1 , height, DELTA);
         Assert.assertEquals(3.7, radius, DELTA);
     }
     @Test
-    public void testConeShouldCreateConeWhenHeightIsTenDotTwoAndRadiusIsOneDotOne(){
+    public void testConeShouldCreateConeWhenHeightIsTenDotTwoAndRadiusIsOneDotOne() {
         /*When*/
         Cone actual = new Cone(point, 10.2, 0.1);
+        /*Then*/
         double height = actual.getHeight();
         double radius = actual.getRadius();
-        /*Then*/
         Assert.assertEquals(10.2 , height,DELTA);
         Assert.assertEquals(0.1, radius, DELTA);
     }
     @Test
-    public void testConeShouldCreateConeWhenHeightIsOneDotOneAndRadiusIsOneDotOne(){
+    public void testConeShouldCreateConeWhenHeightIsOneDotOneAndRadiusIsOneDotOne() {
         /*When*/
         Cone actual = new Cone(point, 0.1, 0.1);
+        /*Then*/
         double height = actual.getHeight();
         double radius = actual.getRadius();
-        /*Then*/
         Assert.assertEquals(0.1 , height, DELTA);
         Assert.assertEquals(0.1, radius, DELTA);
     }
@@ -63,7 +63,7 @@ public class ConeTests {
         new Cone(point, -0.1, 0.0);
     }
     @Test(expected = ConeCreationException.class)
-    public void testConeShouldFailToCreateConeWhenZeroHeightAndNegativeRadius(){
+    public void testConeShouldFailToCreateConeWhenZeroHeightAndNegativeRadius() {
         new Cone(point, 0.0, -0.1);
     }
     @Test(expected = ConeCreationException.class)

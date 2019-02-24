@@ -18,7 +18,7 @@ public class DataReaderImpl implements DataReader {
     public List<String> readLines() throws DataException {
         List<String> inputLines = new ArrayList<>();
         try (FileReader fileReader = new FileReader(path);
-        BufferedReader bufferedReader = new BufferedReader(fileReader)){
+        BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             while(bufferedReader.ready()){
                 String line = bufferedReader.readLine();
                 String trimLine = line.trim();

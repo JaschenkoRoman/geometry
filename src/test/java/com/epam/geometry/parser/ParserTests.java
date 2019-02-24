@@ -14,7 +14,7 @@ public class ParserTests {
     private final ConeParser coneParser = new ConeParser();
 
     @Test
-    public void testShouldParseWhenAllStringsHaveAllFiveElementsAsDouble() throws ParseException{
+    public void testShouldParseWhenAllStringsHaveAllFiveElementsAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},

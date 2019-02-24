@@ -15,7 +15,7 @@ public class ConeParser implements DataParser {
     private Logger logger = LoggerFactory.getLogger(ConeParser.class);
 
     public List<double[]> parse(List<String> inputLines) throws ParseException {
-        if(inputLines.size() == 0){
+        if(inputLines.size() == 0) {
             logger.error("ParseException has occurred: input is empty");
             throw new ParseException("Input is empty");
         }
@@ -27,15 +27,15 @@ public class ConeParser implements DataParser {
                     coneData.add(doublesArray);
                 }
         }
-        if(coneData.size() == 0){
+        if(coneData.size() == 0) {
             logger.error("ParseException has occurred: input does not have valid lines");
             throw new ParseException("Input does not have valid lines");
         }
         return coneData;
     }
-    private boolean checkDoubles(String[] inputDoubles){
+    private boolean checkDoubles(String[] inputDoubles) {
         boolean areValid = true;
-        if(inputDoubles.length >= DOUBLE_QUANTITY){
+        if(inputDoubles.length >= DOUBLE_QUANTITY) {
             for (int i = 0; i <DOUBLE_QUANTITY && areValid; i++) {
                 areValid = inputDoubles[i].matches(DOUBLE_REGEX);
             }
