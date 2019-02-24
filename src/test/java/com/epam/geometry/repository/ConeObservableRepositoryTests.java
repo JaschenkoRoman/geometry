@@ -5,6 +5,8 @@ import com.epam.geometry.entity.Point;
 import com.epam.geometry.logic.Calculator;
 import com.epam.geometry.observer.ConeObservable;
 import com.epam.geometry.repository.specification.*;
+import org.hamcrest.collection.IsIterableContainingInAnyOrder;
+import org.hamcrest.collection.IsIterableContainingInOrder;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ConeObservableRepositoryTests {
@@ -34,65 +37,52 @@ public class ConeObservableRepositoryTests {
 
     @BeforeEach
     public void setUp(){
-        repository.addAll(data);
+        repository.saveAll(data);
     }
     @AfterEach
     public void tearDown(){
         repository.removeAll(data);
     }
 
-    private void assertEqualsConeObservableListsWithoutConsideringOrder
-            (List<ConeObservable> list1, List<ConeObservable> list2){
-        Comparator<ConeObservable> comparator = new IdComparator();
-        list1.sort(comparator);
-        list2.sort(comparator);
-        assertEqualsConeObservableListsConsideringOrder(list1, list2);
-    }
-    private void assertEqualsConeObservableListsConsideringOrder
-            (List<ConeObservable> list1, List<ConeObservable> list2){
-        String delimiter = ", ";
-        String firstList = list1.stream()
-                .map(ConeObservable::toString)
-                .collect(Collectors.joining(delimiter));
-        String secondList = list2.stream()
-                .map(ConeObservable::toString)
-                .collect(Collectors.joining(delimiter));
-        Assert.assertEquals(firstList, secondList);
-    }
     @Test
-    public void testShouldFindAllConeObservableFromRepository() {
+    public void testShouldQueryConeObservableWithAllSpecification() {
         /*Given*/
+        Specification specification = new AllSpecification();
         List<ConeObservable> expected = data;
         /*When*/
-        List<ConeObservable> actual = repository.findAll();
+        List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
-    public void testShouldFindAllConeObservableFromRepositoryWithIdComparator() {
+    public void testShouldQueryAllConeObservableWithAllSpecificationOrderedByIdComparator() {
         /*Given*/
+        Specification specification = new AllSpecification();
         Comparator<ConeObservable> comparator = new IdComparator();
         List<ConeObservable> expected = data;
         /*When*/
-        List<ConeObservable> actual = repository.findAll(comparator);
+        List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void testShouldUpdateConeObservableFromRepository() {
+    public void testShouldSaveConeObservableToRepository() {
         /*Given*/
         Point centre = new Point(0.0, 0.2, 4.9);
         ConeObservable givenItem = new ConeObservable(4, centre, 3.4, 2.8);
         Specification specification = new SpecificationById(4);
         List<ConeObservable> expected = Arrays.asList(givenItem);
         /*When*/
-        repository.update(givenItem);
+        repository.save(givenItem);
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
 
     }
     @Test
@@ -104,7 +94,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRangeXSpecificationOrderedByAreaComparator(){
@@ -116,7 +107,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRangeYSpecification(){
@@ -127,7 +119,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRangeYSpecificationOrderedByHeightComparator(){
@@ -139,7 +132,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRangeZSpecification(){
@@ -150,7 +144,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRangeZSpecificationOrderedByIdComparator(){
@@ -162,7 +157,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithHeightRangeSpecification(){
@@ -173,7 +169,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithHeightRangeSpecificationOrderedByRadiusComparator(){
@@ -185,7 +182,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRadiusRangeSpecification(){
@@ -196,7 +194,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRadiusRangeSpecificationOrderedByVolumeComparator(){
@@ -208,7 +207,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithRadiusRangeSpecificationOrderedByXComparator(){
@@ -220,7 +220,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithIdSpecification(){
@@ -231,7 +232,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithCentreSpecification(){
@@ -243,7 +245,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithAreaSpecification(){
@@ -254,7 +257,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithAreaSpecificationOrderedByYComparator(){
@@ -266,7 +270,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithVolumeSpecification(){
@@ -277,7 +282,8 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsWithoutConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInAnyOrder.containsInAnyOrder(expected.toArray()));
+        assertThat(expected, IsIterableContainingInAnyOrder.containsInAnyOrder(actual.toArray()));
     }
     @Test
     public void testShouldQueryAllConeObservableWithVolumeSpecificationOrderedByZComparator(){
@@ -289,7 +295,7 @@ public class ConeObservableRepositoryTests {
         List<ConeObservable> actual = repository.query(specification, comparator);
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsConeObservableListsConsideringOrder(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
-
 }

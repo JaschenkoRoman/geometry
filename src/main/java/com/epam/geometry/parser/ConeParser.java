@@ -9,7 +9,9 @@ import java.util.List;
 
 public class ConeParser implements DataParser {
 
-    private static final String REGEX = " ";
+    private static final String SPLIT_REGEX = " ";
+    private static final int DOUBLE_QUANTITY = 5;
+    private static String DOUBLE_REGEX = "-?\\d+(\\.\\d+)?";
     private Logger logger = LoggerFactory.getLogger(ConeParser.class);
 
     public List<double[]> parse(List<String> inputLines) throws ParseException {
@@ -19,18 +21,11 @@ public class ConeParser implements DataParser {
         }
         List<double[]> coneData = new ArrayList<>();
         for (String line: inputLines) {
-            String[] doubles = line.split(REGEX);
-            double[] doublesArray = new double[5];
-                try {
-                    for (int i = 0; i < 5; i++) {
-                    double data = Double.parseDouble(doubles[i]);
-                    doublesArray[i] = data;
-                }
+            String[] inputDoubles = line.split(SPLIT_REGEX);
+                if(checkDoubles(inputDoubles)) {
+                    double[] doublesArray = stringArrayToDoubleArray(inputDoubles);
                     coneData.add(doublesArray);
-                } catch (Exception ignore) {
-                    /*NOP*/
                 }
-
         }
         if(coneData.size() == 0){
             logger.error("ParseException has occurred: input does not have valid lines");
@@ -38,5 +33,27 @@ public class ConeParser implements DataParser {
         }
         return coneData;
     }
+    private boolean checkDoubles(String[] inputDoubles){
+        boolean areValid = true;
+        if(inputDoubles.length >= DOUBLE_QUANTITY){
+            for (int i = 0; i <DOUBLE_QUANTITY && areValid; i++) {
+                areValid = inputDoubles[i].matches(DOUBLE_REGEX);
+            }
+        } else {
+            areValid = false;
+        }
+
+        return areValid;
+    }
+    private double[] stringArrayToDoubleArray(String[] inputDoubles){
+        double[] doublesArray = new double[DOUBLE_QUANTITY];
+        for (int i = 0; i < DOUBLE_QUANTITY; i++) {
+            String inputDouble = inputDoubles[i];
+            double data = Double.parseDouble(inputDouble);
+            doublesArray[i] = data;
+        }
+        return doublesArray;
+    }
+
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public class ReaderTests {
     private DataReader reader;
     @Test
-    public void ShouldReadWhenPathIsCorrect() throws DataException {
+    public void testShouldReadWhenPathIsCorrect() throws DataException {
         /*Given*/
         String path = "src/test/resources/readerInput.txt";
         List<String> expectedList = Arrays.asList(
@@ -26,19 +26,19 @@ public class ReaderTests {
         Assert.assertEquals(actualList, expectedList);
     }
     @Test(expected = DataException.class)
-    public void ShouldFailToReadWhenPathIsEmpty() throws DataException {
+    public void testShouldFailToReadWhenPathIsEmpty() throws DataException {
         String path = "";
         reader = new DataReaderImpl(path);
         reader.readLines();
     }
     @Test(expected = DataException.class)
-    public void ShouldFailToReadWhenPathIsIncorrect() throws DataException {
+    public void testShouldFailToReadWhenPathIsIncorrect() throws DataException {
         String path = "Wde://fil@wefefe.txt";
         reader = new DataReaderImpl(path);
         reader.readLines();
     }
     @Test(expected = DataException.class)
-    public void ShouldFailToReadWhenFileDoesNotExist() throws DataException {
+    public void testShouldFailToReadWhenFileDoesNotExist() throws DataException {
         String path = "src/test/resources/reader.txt";
         reader = new DataReaderImpl(path);
         reader.readLines();

@@ -12,7 +12,7 @@ public class ConeObservableRepository implements Repository<ConeObservable> {
     private Set<ConeObservable> coneObservableStorage;
     private Logger logger = LoggerFactory.getLogger(ConeObservableRepository.class);
     @Override
-    public void add(ConeObservable item) {
+    public void save(ConeObservable item) {
         List<ConeObservable> same = coneObservableStorage
                 .stream()
                 .filter(cone -> cone.getId().equals(item.getId()))
@@ -25,17 +25,9 @@ public class ConeObservableRepository implements Repository<ConeObservable> {
         logger.info("ConeObservableRepository " + this.toString() + " has been created");
         this.coneObservableStorage = new HashSet<>();
     }
-    public ConeObservableRepository(Integer initialCapacity) {
-        logger.info("ConeObservableRepository " + this.toString() + " has been created");
-        this.coneObservableStorage = new HashSet<>(initialCapacity);
-    }
     @Override
-    public void addAll(List<ConeObservable> items) {
-        items.stream().forEach(this::add);
-    }
-
-    @Override
-    public void update(ConeObservable item) { add(item);
+    public void saveAll(List<ConeObservable> items) {
+        items.stream().forEach(this::save);
     }
 
     @Override
@@ -46,19 +38,6 @@ public class ConeObservableRepository implements Repository<ConeObservable> {
     @Override
     public void removeAll(List<ConeObservable> items) {
         coneObservableStorage.removeAll(items);
-    }
-
-    @Override
-    public List<ConeObservable> findAll() {
-        return new ArrayList<>(coneObservableStorage);
-    }
-
-    @Override
-    public List<ConeObservable> findAll(Comparator<ConeObservable> comparator) {
-        return coneObservableStorage
-                .stream()
-                .sorted(comparator)
-                .collect(Collectors.toList());
     }
 
     @Override

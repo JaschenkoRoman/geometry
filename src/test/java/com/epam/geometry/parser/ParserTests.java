@@ -1,24 +1,20 @@
 package com.epam.geometry.parser;
 
 import com.epam.geometry.exception.ParseException;
+import org.hamcrest.collection.IsIterableContainingInOrder;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ParserTests {
     private final ConeParser coneParser = new ConeParser();
-    
-    private void assertEqualsLists(List<double[]> expected, List<double[]> actual){
-        for (int i = 0; i < expected.size(); i++) {
-            String expectedArray = Arrays.toString(expected.get(i));
-            String actualArray = Arrays.toString(actual.get(i));
-            Assert.assertEquals(expectedArray, actualArray);
-        } 
-    }
 
     @Test
-    public void ShouldParseWhenAllStringsHaveAllFiveElementsAsDouble() throws ParseException{
+    public void testShouldParseWhenAllStringsHaveAllFiveElementsAsDouble() throws ParseException{
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -31,10 +27,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenEachStringHasMoreThanFiveElementsAsDouble() throws ParseException {
+    public void testShouldParseWhenEachStringHasMoreThanFiveElementsAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -47,10 +44,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0 2.2"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenSecondStringHasFourElementsAsDouble() throws ParseException {
+    public void testShouldParseWhenSecondStringHasFourElementsAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -62,10 +60,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenThirdStringHasThreeElementsAsDouble() throws ParseException {
+    public void testShouldParseWhenThirdStringHasThreeElementsAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -77,11 +76,12 @@ public class ParserTests {
                 "4.0 -5.0 -5.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
 
     @Test
-    public void ShouldParseWhenSecondStringHasFirstElementAsNotDouble() throws ParseException {
+    public void testShouldParseWhenSecondStringHasFirstElementAsNotDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -93,10 +93,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenFirstStringHasFirstElementAsDoubleOthersAsNotDouble() throws ParseException {
+    public void testShouldParseWhenFirstStringHasFirstElementAsDoubleOthersAsNotDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{-2.0, 2.0, 2.0, 5.0, 7.0},
@@ -108,10 +109,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenThirdStringHasFirstAndSecondElementAsDoubleOthersAsNotDouble() throws ParseException {
+    public void testShouldParseWhenThirdStringHasFirstAndSecondElementAsDoubleOthersAsNotDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -123,10 +125,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0## 2.03$ 4.0#41v"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenSecondStringHasThirdElementAsNotDoubleOthersAsDouble() throws ParseException {
+    public void testShouldParseWhenSecondStringHasThirdElementAsNotDoubleOthersAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -138,10 +141,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenFirstStringHasFourthElementAsNotDoubleOthersAsDouble() throws ParseException {
+    public void testShouldParseWhenFirstStringHasFourthElementAsNotDoubleOthersAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{-2.0, 2.0, 2.0, 5.0, 7.0},
@@ -153,10 +157,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenThirdStringHasFifthElementAsNotDoubleOthersAsDouble() throws ParseException {
+    public void testShouldParseWhenThirdStringHasFifthElementAsNotDoubleOthersAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{11.0, 3.0, 2.0, 1.0, 1.0},
@@ -168,10 +173,11 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0sdq@.2"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test
-    public void ShouldParseWhenFirstStringHasFourthElementAsNotDoubleOthersMoreThanFiveAsDouble() throws ParseException {
+    public void testShouldParseWhenFirstStringHasFourthElementAsNotDoubleOthersMoreThanFiveAsDouble() throws ParseException {
         /*Given*/
         List<double[]> expected = Arrays.asList(
                 new double[]{-2.0, 2.0, 2.0, 5.0, 7.0},
@@ -183,14 +189,15 @@ public class ParserTests {
                 "4.0 -5.0 -5.0 2.0 4.0"));
         /*Then*/
         Assert.assertNotNull(actual);
-        assertEqualsLists(expected, actual);
+        assertThat(actual, IsIterableContainingInOrder.contains(expected.toArray()));
+        assertThat(expected, IsIterableContainingInOrder.contains(actual.toArray()));
     }
     @Test(expected = ParseException.class)
-    public void ShouldFailToParseWhenFileIsEmpty() throws ParseException {
+    public void testShouldFailToParseWhenFileIsEmpty() throws ParseException {
         coneParser.parse(Arrays.asList(""));
     }
     @Test(expected = ParseException.class)
-    public void ShouldFailToParseWhenSingleStringIsIncorrect() throws ParseException {
+    public void testShouldFailToParseWhenSingleStringIsIncorrect() throws ParseException {
         coneParser.parse(Arrays.asList("2.0 3.2 4df%#.f2 4.5 34.4"));
     }
 }

@@ -3,6 +3,7 @@ package com.epam.geometry.logic;
 import com.epam.geometry.entity.Plain;
 import com.epam.geometry.entity.Cone;
 import com.epam.geometry.entity.Point;
+import com.epam.geometry.exception.CalculatorException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class CalculatorTests {
     private final Point point = new Point(-4.3, 2.5, 3.7);
     /*area tests*/
     @Test
-    public void ShouldCalculateConeAreaWhenHeightIsSixAndRadiusIsThree(){
+    public void testShouldCalculateConeAreaWhenHeightIsSixAndRadiusIsThree(){
         /*Given*/
         Cone cone = new Cone(point, 6.0, 3.0);
         double expected = 91.51d;
@@ -22,7 +23,7 @@ public class CalculatorTests {
         Assert.assertEquals(expected, actual, DELTA);
     }
     @Test
-    public void ShouldCalculateConeAreaWhenHeightIsThreeAndRadiusIsSix(){
+    public void testShouldCalculateConeAreaWhenHeightIsThreeAndRadiusIsSix(){
         /*Given*/
         Cone cone = new Cone(point, 3.0, 6.0);
         double expected = 239.575d;
@@ -32,7 +33,7 @@ public class CalculatorTests {
         Assert.assertEquals(expected, actual, DELTA);
     }
     @Test
-    public void ShouldCalculateConeAreaWhenHeightIsOneAndRadiusIsOne(){
+    public void testShouldCalculateConeAreaWhenHeightIsOneAndRadiusIsOne(){
         /*Given*/
         Cone cone = new Cone(point, 1.0, 1.0);
         double expected = 7.585d;
@@ -43,7 +44,7 @@ public class CalculatorTests {
     }
     /*Volume tests*/
     @Test
-    public void ShouldCalculateConeVolumeWhenHeightIsSixAndRadiusIsThree(){
+    public void testShouldCalculateConeVolumeWhenHeightIsSixAndRadiusIsThree(){
         /*Given*/
         Cone cone = new Cone(point, 6.0, 3.0);
         double expected = 56.549d;
@@ -53,7 +54,7 @@ public class CalculatorTests {
         Assert.assertEquals(expected, actual, DELTA);
     }
     @Test
-    public void ShouldCalculateConeVolumeWhenHeightIsThreeAndRadiusIsSix(){
+    public void testShouldCalculateConeVolumeWhenHeightIsThreeAndRadiusIsSix(){
         /*Given*/
         Cone cone = new Cone(point, 3.0, 6.0);
         double expected = 113.097d;
@@ -63,7 +64,7 @@ public class CalculatorTests {
         Assert.assertEquals(expected, actual, DELTA);
     }
     @Test
-    public void ShouldCalculateConeVolumeWhenHeightIsOneAndRadiusIsOne(){
+    public void testShouldCalculateConeVolumeWhenHeightIsOneAndRadiusIsOne(){
         /*Given*/
         Cone cone = new Cone(point, 1.0, 1.0);
         double expected = 1.047d;
@@ -74,7 +75,7 @@ public class CalculatorTests {
     }
     /*VolumeRatio tests*/
     @Test
-    public void ShouldCalculateVolumeRatioWhenConeHeightIsFiveAndPlainHeightIsTwo(){
+    public void testShouldCalculateVolumeRatioWhenConeHeightIsFiveAndPlainHeightIsTwo() throws CalculatorException {
         /*Given*/
         Cone cone = new Cone(point, 5.0, 2.0);
         Plain plain = new Plain(2.0);
@@ -84,19 +85,17 @@ public class CalculatorTests {
         /*Then*/
         Assert.assertEquals(expected, actual, DELTA);
     }
-    @Test
-    public void ShouldCalculateVolumeRatioWhenConeHeightIsFiveAndPlainHeightIsSix(){
+    @Test(expected = CalculatorException.class)
+    public void testShouldFailToCalculateVolumeRatioWhenConeHeightIsFiveAndPlainHeightIsSix() throws CalculatorException {
         /*Given*/
         Cone cone = new Cone(point, 5.0, 2.0);
         Plain plain = new Plain(6.0);
-        double expected = -1;
         /*When*/
-        double actual = calculator.volumeRatio(cone, plain);
-        /*Then*/
-        Assert.assertEquals(expected, actual, DELTA);
+       calculator.volumeRatio(cone, plain);
+
     }
     @Test
-    public void ShouldCalculateVolumeRatioWhenConeHeightIsTwoAndPlainHeightIsOne(){
+    public void testShouldCalculateVolumeRatioWhenConeHeightIsTwoAndPlainHeightIsOne() throws CalculatorException {
         /*Given*/
         Cone cone = new Cone(point, 2.0, 5.0);
         Plain plain = new Plain(1.0);
@@ -109,7 +108,7 @@ public class CalculatorTests {
 
     /*IsSituatedOnTheSurface tests*/
     @Test
-    public void ShouldCalculateCaneIsSituatedOnTheSurfaceXY(){
+    public void testShouldCalculateCaneIsSituatedOnTheSurfaceXY(){
         /*Given*/
         Point point = new Point(2.0,-2.0,0.0);
         Cone cone = new Cone(point, 6.0, 3.0);
@@ -119,7 +118,7 @@ public class CalculatorTests {
         Assert.assertTrue(isSituated);
     }
     @Test
-    public void ShouldCalculateCaneIsSituatedOnTheSurfaceYZ(){
+    public void testShouldCalculateCaneIsSituatedOnTheSurfaceYZ(){
         /*Given*/
         Point point = new Point(0.0,-2.0,3.0);
         Cone cone = new Cone(point, 6.0, 3.0);
@@ -129,7 +128,7 @@ public class CalculatorTests {
         Assert.assertTrue(isSituated);
     }
     @Test
-    public void ShouldCalculateCaneIsSituatedOnTheSurfaceXZ(){
+    public void testShouldCalculateCaneIsSituatedOnTheSurfaceXZ(){
         /*Given*/
         Point point = new Point(2.0,0.0,-3.0);
         Cone cone = new Cone(point, 6.0, 3.0);
@@ -139,7 +138,7 @@ public class CalculatorTests {
         Assert.assertTrue(isSituated);
     }
     @Test
-    public void ShouldCalculateCaneIsSituatedOnAllSurfaces(){
+    public void testShouldCalculateCaneIsSituatedOnAllSurfaces(){
         /*Given*/
         Point point = new Point(0.0,0.0,0.0);
         Cone cone = new Cone(point, 6.0, 3.0);
@@ -149,7 +148,7 @@ public class CalculatorTests {
         Assert.assertTrue(isSituated);
     }
     @Test
-    public void ShouldCalculateCaneIsNotSituatedOnAnySurface(){
+    public void testShouldCalculateCaneIsNotSituatedOnAnySurface(){
         /*Given*/
         Point point = new Point(2.0,-2.0,5.0);
         Cone cone = new Cone(point, 6.0, 3.0);
